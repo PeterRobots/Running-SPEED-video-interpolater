@@ -37,6 +37,24 @@ uv python install
 uv add -r requirements-12-4.txt
 ```
 # Running
+## A script for convenience
+I made a bash script wrapping calls to `inference.py`.
+- Activates the python venv
+- Sets up env path required by SPEED
+- (hopefully) Simplifies input arguments a bit
+Download `run.sh` with your preferred method into the SPEED folder.
+```bash
+cd SPEED
+wget https://github.com/PeterRobots/Running-SPEED-video-interpolater/blob/main/run.sh
+sudo chmod +x run.sh
+```
+
+## Run the script
+Below is an example running the script in sequential mode with double fps (retains video length).
+```bash
+./run.sh -i "path/input_file.mp4" -i "path/output_file.mp4"
+```
+## Without script 
 You can run the model following the example in the SPEED repo, running `inference.py` arg.
 #### inference.py has the follow arguments:
 ```sh
@@ -55,23 +73,6 @@ You can run the model following the example in the SPEED repo, running `inferenc
 # --precision str
 # --seed int
 # --strict_load
-```
-## A script for convenience
-I made a bash script wrapping calls to `inference.py`.
-- Activates the python venv
-- Sets up env path required by SPEED
-- (hopefully) Simplifies input arguments a bit
-Download `run.sh` with your preferred method into the SPEED folder.
-```bash
-cd SPEED
-wget https://github.com/PeterRobots/Running-SPEED-video-interpolater/blob/main/run.sh
-sudo chmod +x run.sh
-```
-
-## Run the script
-Below is an example running the script in sequential mode with double fps (retains video length).
-```bash
-./run.sh -i "path/input_file.mp4" -i "path/output_file.mp4"
 ```
 
 # To do
