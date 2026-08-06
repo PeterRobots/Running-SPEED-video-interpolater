@@ -7,7 +7,7 @@ https://huggingface.co/zhZ524/SPEED/tree/main
 I was curious as I've been trying to make short video loops with speed changes.
 
 # Installing
-It usually a good idea installing a program with specific dependencies inside some sort of container.
+It's usually a good idea installing a program with specific dependencies inside some sort of container.
 I chose `distrobox` with `podman` as it's on Bazzite and very user friendly.
 ## Make a cuda capable container
 I'm not confident the `distrobox` command will work on all flavours of distro.
