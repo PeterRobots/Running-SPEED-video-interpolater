@@ -61,7 +61,12 @@ I made a bash script wrapping calls to `inference.py`.
 - Activates the python venv
 - Sets up env path required by SPEED
 - (hopefully) Simplifies input arguments a bit
-See `run.sh`
+Download `run.sh` with your preferred method into the SPEED folder.
+```bash
+cd SPEED
+wget https://github.com/PeterRobots/Running-SPEED-video-interpolater/blob/main/run.sh
+sudo chmod +x run.sh
+```
 
 ## Run the script
 Below is an example running the script in sequential mode with double fps (retains video length).
