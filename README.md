@@ -30,7 +30,7 @@ You should automatically enter the container, if not: `distrobox enter speed`
 sudo apt install git
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install uv
-git clone https://github.com/bbldCVer/SPEED.git
+git clone git@github.com:PeterRobots/SPEED.git
 cd SPEED
 mkdir ckpts
 cd ckpts
@@ -186,20 +186,7 @@ Below is an example running the script in sequential mode with double fps (retai
 ```
 
 # To do
-Investigate additional modes of operation: 
-- Greater than bisection possible? (trisection?)
-	- `interpolate_batch()` passes `model()` a timestep value, can it be changed?
-		-  Investigate timestep value
-			-  `timestep = torch.full((frame0.shape[0],), 1000.0, dtype=frame0.dtype, device=device)`
-				- `torch.full()` makes a tensor of size `arg1` and sets all values to `arg2`.
-				- Why `1000.0`?
-					- do other values return sensible outputs?
-					- can I get two interpolated values at `500.0` and `1500.0`?
-	- Give user a timestep argument.
-		- Modify functions:
-			- in `inference.py`
-				- `parse_args`() in `main()`
-					- `validate_args()`
-				- `interpolate_video_parallel()`
-				- `iterpolate_video_sequential()`
-					-  `interpolate_batch()` 
+1) Test extra frame generation options further
+	- Test >3
+	- Test parallel
+ 	- Validate the extra frames are interpolations and not copies
