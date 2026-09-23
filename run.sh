@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 INPUT=""
 OUTPUT=""
 FPS_MODE="increase"
@@ -78,9 +78,10 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
-
-source .venv/bin/activate
-export PYTHONPATH="${PWD}:${PWD}/src/utils:${PYTHONPATH}"
+SCRIPT_DIR="${0:A:h}"
+echo $SCRIPT_DIR
+source "$SCRIPT_DIR/.venv/bin/activate"
+export PYTHONPATH="${SCRIPT_DIR}:${SCRIPT_DIR}/src/utils:${PYTHONPATH}"
 
 FPS=$(ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=r_frame_rate "$INPUT")
 FPS=$((FPS))
@@ -113,15 +114,21 @@ case $FOURCC in
     ;;
 esac
 
-echo $OUTPUT_FILETYPE
-echo $FOURCC
+if [[ -z "$OUTPUT" ]]; then
+  F_BASE=$(basename $INPUT)
+  F_NAME="${F_BASE%.*}"
+  F_CONTAINER="${F_BASE:e}"
+  F_DIR="${INPUT:h}"
+  OUTPUT="$F_DIR/${F_NAME}_interpolated.$F_CONTAINER"
+fi
+
 OUTPUT="${OUTPUT%.*}$OUTPUT_FILETYPE"
 
 case $MODE in
   parallel)
-    python inference.py \
-      --config configs/eval_config.yaml \
-      --pretrained_path ckpts/speed.pt \
+    python "$SCRIPT_DIR/inference.py" \
+      --config "$SCRIPT_DIR/configs/eval_config.yaml" \
+      --pretrained_path "$SCRIPT_DIR/ckpts/speed.pt" \
       --input_video "$INPUT" \
       --output "$OUTPUT" \
       --video_mode parallel \
@@ -132,9 +139,9 @@ case $MODE in
       --gen_frames $GEN_FRAMES
       ;;
   sequential)
-    python inference.py \
-      --config configs/eval_config.yaml \
-      --pretrained_path ckpts/speed.pt \
+    python "$SCRIPT_DIR/inference.py" \
+      --config "$SCRIPT_DIR/configs/eval_config.yaml" \
+      --pretrained_path "$SCRIPT_DIR/ckpts/speed.pt" \
       --input_video "$INPUT" \
       --output "$OUTPUT" \
       --video_mode sequential \
